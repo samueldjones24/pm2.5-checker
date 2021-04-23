@@ -1,22 +1,22 @@
-import logo from "./logo.svg";
-
 function App() {
+  const countries = [
+    { name: "England" },
+    { name: "France" },
+    { name: "Spain" },
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="text-center">
+      <header style={{ border: "1px solid black" }}>
+        Header
+        <p>Tech test for Victorian Plumbing</p>
       </header>
+      <main style={{ border: "1px solid black" }}>
+        Body
+        {countries.map((c) => (
+          <h1>{c.name}</h1>
+        ))}
+      </main>
+      <footer style={{ border: "1px solid black" }}>I'm a footer</footer>
     </div>
   );
 }
