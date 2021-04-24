@@ -1,3 +1,15 @@
-.text-center {
-  text-align: center;
+.animated {
+  animation: fadeIn 1s ease-in;
+}
+
+.margin-bottom-small {
+  margin-bottom: 10px;
+}
+
+.underline-magical {
+  background-image: linear-gradient(120deg, #fa84fa 0%, #8fd3f4 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 95%;
+  transition: background-size 0.25s ease-in;
 }

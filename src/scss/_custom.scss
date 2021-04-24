@@ -1,0 +1,56 @@
+.app {
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: bold;
+  letter-spacing: 1px;
+  height: 100vh;
+  width: auto;
+  font-size: calc(10px + 2vmin);
+}
+
+header {
+  text-transform: uppercase;
+  background-image: url("../assets/photo.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 20vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  position: relative;
+}
+
+.container {
+  color: rgb(61, 61, 61);
+  height: 80vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.item {
+  flex: 1;
+  width: 50vw;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.pm25-rating {
+  border-radius: 3px;
+  padding: 0.5rem;
+  color: white;
+
+  &--good {
+    background-color: rgb(60, 235, 8);
+  }
+
+  &--moderate {
+    background-color: rgb(245, 209, 9);
+  }
+
+  &--unhealthy {
+    background-color: rgb(238, 57, 25);
+  }
+}
