@@ -1,22 +1,137 @@
+import { useState, useEffect } from "react";
+import { getCountries } from "./services/getCountries";
+import { getCities } from "./services/getCities";
+import { getMeasurements } from "./services/getMeasurements";
+import { sortBy } from "./utils/sortBy";
+import { get } from "./utils/get";
+
 function App() {
-  const countries = [
-    { name: "England" },
-    { name: "France" },
-    { name: "Spain" },
-  ];
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState("");
+  const [cities, setCities] = useState([]);
+  const [city, setCity] = useState("");
+  const [measurements, setMeasurements] = useState([]);
+
+  async function fetchMeasurements({ countryCode, city }) {
+    const response = await getMeasurements({ countryCode, city });
+    setMeasurements(response);
+  }
+
+  async function fetchCities(countryCode) {
+    const response = await getCities(countryCode);
+    setCities(response);
+  }
+
+  useEffect(() => {
+    async function fetchCountries() {
+      const response = await getCountries();
+      const sortedCountries = sortBy(response, "name");
+      setCountries(sortedCountries);
+    }
+    fetchCountries();
+  }, []);
+
+  const handleSubmitCountry = (e) => {
+    e.preventDefault();
+    setCountry(e.target.value);
+    fetchCities(e.target.value);
+  };
+
+  const handleSubmitCity = (e) => {
+    e.preventDefault();
+    setCity(e.target.value);
+    fetchMeasurements({ countryCode: country, city: e.target.value });
+  };
+
+  const pm25Level = get(
+    measurements.find((m) => m.parameter === "pm25"),
+    "value",
+    0
+  );
+  let pm25Rating;
+  let ratingStyle;
+  if (Number(pm25Level) < 20) {
+    pm25Rating = "Good";
+    ratingStyle = "--good";
+  } else if (Number(pm25Level) > 20 && Number(pm25Level) < 35) {
+    pm25Rating = "Moderate";
+    ratingStyle = "--moderate";
+  } else {
+    pm25Rating = "Unhealthy";
+    ratingStyle = "--unhealthy";
+  }
+
   return (
-    <div className="text-center">
-      <header style={{ border: "1px solid black" }}>
-        Header
-        <p>Tech test for Victorian Plumbing</p>
+    <div className="app">
+      <header>
+        <h1>PM2.5 Checker</h1>
       </header>
-      <main style={{ border: "1px solid black" }}>
-        Body
-        {countries.map((c) => (
-          <h1>{c.name}</h1>
-        ))}
+      <main className="container">
+        <div className="item">
+          PM2.5 refers to atmospheric particulate matter (PM) that have a
+          diameter of less than 2.5 micrometers, which is about 3% the diameter
+          of a human hair.
+          <br />
+          <br />
+          Due to the many adverse effects fine particles can inflict on a large
+          number of people, PM2.5 is one of the major pollutants closely
+          monitored by health authorities around the world.
+          <br />
+          <br />
+          This is why we created a dedicated{" "}
+          <span className="underline-magical">PM2.5 Checker</span>
+        </div>
+        <div className="item">
+          <div className="margin-bottom-small">
+            <label htmlFor="countries">Choose a country: </label>
+
+            <select
+              autoFocus
+              name="countries"
+              id="countries"
+              onChange={(e) => handleSubmitCountry(e)}
+              value={country}
+            >
+              <option value="">Select option</option>
+              {countries.map((country, index) => (
+                <option key={`${country}-${index}`} value={country.code}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {Boolean(cities.length) && (
+            <div className="margin-bottom-small animated">
+              <label htmlFor="cities">Choose a city: </label>
+
+              <select
+                autoFocus
+                name="cities"
+                id="cities"
+                onChange={(e) => handleSubmitCity(e)}
+                value={city}
+              >
+                <option value="">Select option</option>
+                {cities.map(({ city }, index) => (
+                  <option key={`${city}-${index}`} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {Boolean(measurements.length) && (
+            <div className="margin-bottom-small animated">
+              <p>
+                Current level: {pm25Level} μg/m3{" "}
+                <span className={`pm25-rating pm25-rating${ratingStyle}`}>
+                  {pm25Rating}
+                </span>
+              </p>
+            </div>
+          )}
+        </div>
       </main>
-      <footer style={{ border: "1px solid black" }}>I'm a footer</footer>
     </div>
   );
 }
