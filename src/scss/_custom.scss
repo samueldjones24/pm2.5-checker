@@ -4,7 +4,7 @@
   letter-spacing: 1px;
   height: 100vh;
   width: auto;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(6px + 2vmin);
 }
 
 header {
@@ -22,19 +22,15 @@ header {
 
 .container {
   color: rgb(61, 61, 61);
-  height: 80vh;
   display: flex;
   align-content: center;
   justify-content: center;
-  flex-direction: column;
 }
 
 .item {
-  flex: 1;
-  width: 50vw;
-  margin: auto;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  width: 550px;
+  height: auto;
+  margin: 50px;
 }
 
 .pm25-rating {
