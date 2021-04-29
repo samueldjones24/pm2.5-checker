@@ -1,10 +1,3 @@
-# VP Tech Test
+# PM 2.5 Checker
 
-### `npm i`
-
-Install dependencies
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+An app that displays the PM2.5 measurements given a country and city name.
