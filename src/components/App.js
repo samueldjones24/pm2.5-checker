@@ -1,6 +1,6 @@
-import { Header } from "./components/Header";
-import { Intro } from "./components/Intro";
-import { Checker } from "./components/Checker";
+import { Header } from "./Header";
+import { Intro } from "./Intro";
+import { Checker } from "./Checker";
 
 function App() {
   return (
