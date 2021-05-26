@@ -1,46 +1,37 @@
 import { useState, useEffect } from "react";
-import { getCountries } from "../../services/getCountries";
-import { getCities } from "../../services/getCities";
-import { getMeasurements } from "../../services/getMeasurements";
-import { sortBy } from "../../utils/sortBy";
-import { get } from "../../utils/get";
+import { get } from "../utils/get";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCities } from "../features/cities/populateCities";
+import { fetchMeasurements } from "../features/measurements/populateMeasurements";
+import { fetchCountries } from "../features/countries/populateCountries";
 
 export function Checker() {
-  const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("");
-  const [cities, setCities] = useState([]);
   const [city, setCity] = useState("");
-  const [measurements, setMeasurements] = useState([]);
+  const dispatch = useDispatch();
 
-  async function fetchMeasurements({ countryCode, city }) {
-    const response = await getMeasurements({ countryCode, city });
-    setMeasurements(response);
-  }
-
-  async function fetchCities(countryCode) {
-    const response = await getCities(countryCode);
-    setCities(response);
-  }
+  const { countries, cities, measurements } = useSelector((state) => ({
+    countries: state.countries,
+    cities: state.cities,
+    measurements: state.measurements,
+  }));
 
   useEffect(() => {
-    async function fetchCountries() {
-      const response = await getCountries();
-      const sortedCountries = sortBy(response, "name");
-      setCountries(sortedCountries);
-    }
-    fetchCountries();
-  }, []);
+    dispatch(fetchCountries());
+  }, [dispatch]);
 
   const handleSubmitCountry = (e) => {
     e.preventDefault();
-    setCountry(e.target.value);
-    fetchCities(e.target.value);
+    const countryCode = e.target.value;
+    setCountry(countryCode);
+    dispatch(fetchCities(countryCode));
   };
 
   const handleSubmitCity = (e) => {
     e.preventDefault();
-    setCity(e.target.value);
-    fetchMeasurements({ countryCode: country, city: e.target.value });
+    const city = e.target.value;
+    setCity(city);
+    dispatch(fetchMeasurements(country, city));
   };
 
   const pm25Level = get(
