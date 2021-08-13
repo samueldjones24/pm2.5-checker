@@ -1,6 +1,6 @@
 export function Intro() {
   return (
-    <div className="item">
+    <div>
       PM2.5 refers to atmospheric particulate matter (PM) that have a diameter
       of less than 2.5 micrometers, which is about 3% the diameter of a human
       hair.

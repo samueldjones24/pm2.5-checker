@@ -1,10 +1,10 @@
 .app {
-  color: rgba(255, 255, 255, 0.86);
-  font-weight: bold;
   letter-spacing: 1px;
   height: 100vh;
-  width: auto;
-  font-size: calc(6px + 2vmin);
+  max-width: 800px;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 header {
@@ -13,24 +13,26 @@ header {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 20vh;
+  height: 150px;
   display: flex;
-  align-content: center;
   justify-content: center;
-  position: relative;
+  align-items: center;
+  color: #ffffff;
+  border-radius: 3px;
 }
 
 .container {
   color: rgb(61, 61, 61);
   display: flex;
-  align-content: center;
-  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.item {
-  width: 550px;
-  height: auto;
-  margin: 50px;
+.checker {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .pm25-rating {

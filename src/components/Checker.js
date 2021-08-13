@@ -22,6 +22,7 @@ export function Checker() {
 
   const handleSubmitCountry = (e) => {
     e.preventDefault();
+    setCity("");
     const countryCode = e.target.value;
     setCountry(countryCode);
     dispatch(fetchCities(countryCode));
@@ -53,7 +54,7 @@ export function Checker() {
   }
 
   return (
-    <div className="item">
+    <div className="checker">
       <div className="margin-bottom-small">
         <label htmlFor="countries">Choose a country: </label>
 
@@ -92,14 +93,12 @@ export function Checker() {
           </select>
         </div>
       )}
-      {Boolean(measurements.length) && (
+      {Boolean(measurements.length && city !== "") && (
         <div className="margin-bottom-small animated">
-          <p>
-            Current level: {pm25Level} μg/m3{" "}
-            <span className={`pm25-rating pm25-rating${ratingStyle}`}>
-              {pm25Rating}
-            </span>
-          </p>
+          <p>Current level: {pm25Level} μg/m3 </p>
+          <span className={`pm25-rating pm25-rating${ratingStyle}`}>
+            {pm25Rating}
+          </span>
         </div>
       )}
     </div>
