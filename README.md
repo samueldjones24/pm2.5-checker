@@ -1,6 +1,8 @@
 # PM 2.5 Checker
 
-An app that displays the PM2.5 measurements for a specified city.
+*Note*: I built this as part of the tech test for Victorian Plumbing.
+
+An app that displays the PM2.5 measurements for a specified city. 
 
 ### Data
 
